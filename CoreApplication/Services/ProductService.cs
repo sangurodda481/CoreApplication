@@ -15,8 +15,7 @@ namespace CoreApplication.Services
 
         private SqlConnection GetSqlConnection()
         {
-
-
+           
             return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
 
