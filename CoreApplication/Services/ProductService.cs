@@ -3,23 +3,21 @@ using System.Data.SqlClient;
 
 namespace CoreApplication.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        private static string connectionString = "appaz400.database.windows.net";
-        private static string userName = "sangappa";
-        private static string passWord = "Honda@123456";
-        private static string dataBase = "appDb";
 
+        private readonly IConfiguration _configuration;
+
+        public ProductService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         private SqlConnection GetSqlConnection()
         {
-            var _builder=new SqlConnectionStringBuilder();
-            _builder.DataSource = connectionString;
-            _builder.UserID = userName;
-            _builder.Password = passWord;
-            _builder.InitialCatalog = dataBase;
 
-            return new SqlConnection(_builder.ConnectionString);
+
+            return new SqlConnection(_configuration.GetConnectionString("SQLConnection"));
         }
 
         public List<Product> GetProducts()
@@ -54,5 +52,5 @@ namespace CoreApplication.Services
 
     }
 
-    
+
 }
